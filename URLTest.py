@@ -3,7 +3,6 @@ import random
 import threading
 from time import ctime,sleep
 import json
-import random
 
 
 def random_mac():
