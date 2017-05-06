@@ -10,11 +10,12 @@ def random_mac():
     randMac = ":".join(macList)
     return randMac
 
-
+probeList = []
 def randomProbe(file, times):
     for i in range(1000):
-        probe = {"id":i, "mmac": random_mac(), "rate":times, "wssid":"test", "wmac":random_mac()}
-        json.dump(probe, file)
+        probe = {"id": i, "mmac": random_mac(), "rate": times, "wssid":"test", "wmac": random_mac()}
+        probelist.append(probe)
+
 
 file = open("/Users/maicius/代码/MultiThreadsSendPackets/probe.json", "w")
 randomProbe(file, 3)
