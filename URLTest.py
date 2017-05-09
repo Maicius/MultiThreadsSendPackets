@@ -4,7 +4,7 @@ import threading
 from time import ctime,sleep
 import json
 import urllib2
-
+import time
 def random_mac():
     macList = []
     for i in range(1,7):
@@ -30,18 +30,18 @@ def random_id():
 probeList = []
 
 
-def randomProbe(times):
-
-    for i in range(1000):
-        probe = {"id": random_id(), "mmac": random_mac(), "rate": 3, "wssid": "test", "wmac": random_mac()}
-        probes = json.dumps(probe)
-        probeList.append(probes)
+# def randomProbe(times):
+#
+#     for i in range(1000):
+#         probe = {"id": random_id(), "mmac": random_mac(), "rate": 3, "wssid": "test", "wmac": random_mac(), "time": }
+#         probes = json.dumps(probe)
+#         probeList.append(probes)
 
 
 def random_json():
     headers = {'Content-Type': 'application/json'}
 
-    probe = {"id": random_id(), "mmac": random_mac(), "rate": 3, "wssid": "test", "wmac": random_mac()}
+    probe = {"id": random_id(), "mmac": random_mac(), "rate": 3, "wssid": "test", "wmac": random_mac(), "time": time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))}
     mac_data ={"mac": random_mac(), "rssi": random_rssi(), "range": random_range()}
     #data_json = json.dumps(mac_data)
     probe['data'] = mac_data
