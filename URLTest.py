@@ -7,7 +7,7 @@ import urllib2
 import time
 def random_mac():
     macList = []
-    for i in range(1,7):
+    for i in range(1, 7):
         randStr = "".join(random.sample("0123456789abcdef",2))
         macList.append(randStr)
     randMac = ":".join(macList)
@@ -15,16 +15,16 @@ def random_mac():
 
 
 def random_rssi():
-    return random.randrange(-100, 0)
+    return str(random.randrange(-100, 0))
 
 
 def random_range():
-    return round(random.uniform(0, 100), 1)
+    return str(round(random.uniform(0, 100), 1))
 
 
 
 def random_id():
-    return random.randrange(1, 1000)
+    return str(random.randrange(1, 1000))
 
 
 probeList = []
@@ -39,13 +39,18 @@ probeList = []
 
 
 def random_json():
-    headers = {'Content-Type': 'application/json'}
 
-    probe = {"id": random_id(), "mmac": random_mac(), "rate": 3, "wssid": "test", "wmac": random_mac(), "time": time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))}
+    headers = {'Content-Type': 'application/json'}
+    probe = {"id": ''+random_id(), "mmac": random_mac(), "rate": "3", "wssid": "test", "wmac": random_mac(), "time": time.strftime('%a %b %e %H:%M:%S %Y', time.localtime(time.time()))}
     mac_data ={"mac": random_mac(), "rssi": random_rssi(), "range": random_range()}
+    mac_DataMul = []
     #data_json = json.dumps(mac_data)
-    probe['data'] = mac_data
+    for i in range(random.randrange(1, 5)):
+        mac_DataMul.append({"mac": random_mac(), "rssi": random_rssi(), "range": random_range()})
+    probe['data'] = mac_DataMul
+
     probe = json.dumps(probe)
+
     print probe
     request = urllib2.Request(url='http://localhost:8080/upload.action', headers=headers, data=probe)
     response = urllib2.urlopen(request)
@@ -60,10 +65,10 @@ if __name__ == '__main__':
     #     probes = json.dumps(probe)
     #     probeList.append(probes)
 
-    for i in range(10000):
+    for i in range(1000):
         t = threading.Thread(target=random_json)
         threads.append(t)
-    for i in range(10000):
+    for i in range(1000):
         threads[i].setDaemon(True)
         threads[i].start()
 

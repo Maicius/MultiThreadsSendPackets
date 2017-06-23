@@ -14,7 +14,7 @@ probeList = []
 def randomProbe(file, times):
     for i in range(1000):
         probe = {"id": i, "mmac": random_mac(), "rate": times, "wssid":"test", "wmac": random_mac()}
-        probelist.append(probe)
+        probeList.append(probe)
 
 
 file = open("/Users/maicius/代码/MultiThreadsSendPackets/probe.json", "w")
